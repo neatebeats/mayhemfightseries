@@ -25,7 +25,7 @@ permalink: /sponsors/
             <div class="sponsor-item" style="opacity:0.9;">
               {% if sponsor.data.logo %}
                 <a href="{{ sponsor.data.url or '#' }}" target="_blank" rel="noopener">
-                  <img src="{{ sponsor.data.logo }}" alt="{{ sponsor.data.title }}" style="height:70px;width:auto;filter:brightness(0) invert(1);" />
+                  <img src="{{ sponsor.data.logo }}" alt="{{ sponsor.data.title }}" style="height:70px;width:auto;" />
                 </a>
               {% else %}
                 <div class="sponsor-placeholder" style="padding:24px 48px;font-size:16px;font-weight:700;">{{ sponsor.data.title }}</div>
