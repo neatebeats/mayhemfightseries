@@ -933,7 +933,7 @@ ul { list-style: none; }
   justify-content: center;
 }
 .sponsor-item:hover { opacity: 1; }
-.sponsor-item img { height: 50px; width: auto; filter: brightness(0) invert(1); }
+.sponsor-item img { height: 50px; width: auto;  }
 .sponsor-placeholder {
   background: var(--charcoal);
   border: 1px solid rgba(255,255,255,0.08);
