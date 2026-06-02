@@ -1,0 +1,38 @@
+---
+layout: base.njk
+title: "Gallery"
+permalink: /gallery/
+---
+{% set allGalleries = collections.gallery %}
+<section class="page-hero">
+  <div class="container">
+    <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" style="height:70px;width:auto;margin-bottom:24px;" />
+    <div class="section-label">Mayhem Fight Series</div>
+    <h1 class="page-hero__title">Gallery</h1>
+    <p class="page-hero__sub">Event photography from every Mayhem Fight Series event</p>
+  </div>
+</section>
+<section class="gallery-section" style="padding-top:60px;">
+  <div class="container--wide">
+    {% if allGalleries and allGalleries.length %}
+      {% for album in allGalleries %}
+        <div class="container" style="margin-bottom:48px;">
+          <div style="font-family:var(--font-display);font-size:28px;text-transform:uppercase;margin-bottom:24px;padding-bottom:12px;border-bottom:2px solid var(--red);">{{ album.data.title }}</div>
+          <div class="gallery-grid">
+            {% for photo in album.data.photos %}
+              <div class="gallery-item">
+                <img src="{{ photo.image }}" alt="{{ photo.caption or album.data.title }}" />
+                <div class="gallery-item__overlay"></div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div style="text-align:center;padding:80px 24px;">
+        <div style="font-family:var(--font-display);font-size:48px;color:var(--red);margin-bottom:16px;">Coming Soon</div>
+        <div style="font-family:var(--font-condensed);font-size:14px;color:var(--grey);">Photos are added after each event via the admin panel.</div>
+      </div>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,62 @@
+---
+layout: base.njk
+title: "Sponsors"
+permalink: /sponsors/
+---
+{% set activeSponsors = collections.sponsors | activeOnly %}
+<section class="page-hero">
+  <div class="container">
+    <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" style="height:70px;width:auto;margin-bottom:24px;" />
+    <div class="section-label">Partners & Supporters</div>
+    <h1 class="page-hero__title">Sponsors</h1>
+    <p class="page-hero__sub">The partners who make Mayhem Fight Series possible</p>
+  </div>
+</section>
+<section style="padding:80px 0;background:var(--black);">
+  <div class="container">
+    <div class="animate-in" style="margin-bottom:80px;">
+      <div style="text-align:center;margin-bottom:48px;">
+        <div class="section-label" style="justify-content:center;">Official Sponsors</div>
+        <h2 class="section-title" style="font-size:clamp(36px,5vw,64px);">Our <span>Partners</span></h2>
+      </div>
+      <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;">
+        {% if activeSponsors and activeSponsors.length %}
+          {% for sponsor in activeSponsors %}
+            <div class="sponsor-item" style="opacity:0.9;">
+              {% if sponsor.data.logo %}
+                <a href="{{ sponsor.data.url or '#' }}" target="_blank" rel="noopener">
+                  <img src="{{ sponsor.data.logo }}" alt="{{ sponsor.data.title }}" style="height:70px;width:auto;filter:brightness(0) invert(1);" />
+                </a>
+              {% else %}
+                <div class="sponsor-placeholder" style="padding:24px 48px;font-size:16px;font-weight:700;">{{ sponsor.data.title }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="sponsor-item" style="opacity:0.9;"><div class="sponsor-placeholder" style="padding:24px 48px;font-size:16px;font-weight:700;">Fighting Arts Gym Belmont</div></div>
+          <div class="sponsor-item" style="opacity:0.9;"><div class="sponsor-placeholder" style="padding:24px 48px;font-size:16px;font-weight:700;">MASA</div></div>
+        {% endif %}
+      </div>
+    </div>
+    <div class="animate-in" style="background:var(--charcoal);border:1px solid rgba(200,16,46,0.3);padding:60px;text-align:center;">
+      <div class="section-label" style="justify-content:center;">Partner with Mayhem Fight Series</div>
+      <h2 class="section-title" style="font-size:clamp(32px,5vw,60px);margin-bottom:24px;">Sponsorship <span>Packages</span></h2>
+      <p style="font-family:var(--font-body);font-size:15px;color:var(--grey);max-width:600px;margin:0 auto 32px;line-height:1.8;">Get your brand in front of Newcastle's passionate combat sports community. Multiple sponsorship tiers available to suit any budget.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;margin-bottom:40px;text-align:left;">
+        <div style="background:var(--dark);padding:24px;border-top:3px solid var(--gold);">
+          <div style="font-family:var(--font-display);font-size:24px;color:var(--gold);margin-bottom:12px;">TITLE</div>
+          <ul style="font-family:var(--font-condensed);font-size:13px;color:var(--grey);display:flex;flex-direction:column;gap:8px;"><li>✓ Naming rights</li><li>✓ Ring announcements</li><li>✓ Fight poster logo</li><li>✓ Social media integration</li><li>✓ VIP tickets</li></ul>
+        </div>
+        <div style="background:var(--dark);padding:24px;border-top:3px solid var(--red);">
+          <div style="font-family:var(--font-display);font-size:24px;color:var(--red);margin-bottom:12px;">MAJOR</div>
+          <ul style="font-family:var(--font-condensed);font-size:13px;color:var(--grey);display:flex;flex-direction:column;gap:8px;"><li>✓ Banner placement</li><li>✓ Social media posts</li><li>✓ Fight poster logo</li><li>✓ Complimentary tickets</li></ul>
+        </div>
+        <div style="background:var(--dark);padding:24px;border-top:3px solid var(--steel);">
+          <div style="font-family:var(--font-display);font-size:24px;margin-bottom:12px;">SUPPORTER</div>
+          <ul style="font-family:var(--font-condensed);font-size:13px;color:var(--grey);display:flex;flex-direction:column;gap:8px;"><li>✓ Website logo</li><li>✓ Social mention</li><li>✓ Event listing</li></ul>
+        </div>
+      </div>
+      <a href="/contact/" class="btn btn--primary" style="font-size:15px;padding:18px 40px;">Request Sponsorship Package</a>
+    </div>
+  </div>
+</section>

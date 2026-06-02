@@ -1,0 +1,46 @@
+---
+layout: base.njk
+title: "Fighters"
+permalink: /fighters/
+---
+{% set allFighters = collections.fighters %}
+<section class="page-hero">
+  <div class="container">
+    <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" style="height:70px;width:auto;margin-bottom:24px;" />
+    <div class="section-label">Mayhem Fight Series</div>
+    <h1 class="page-hero__title">Fighters</h1>
+    <p class="page-hero__sub">Fighter profiles for upcoming events</p>
+  </div>
+</section>
+<section style="padding:80px 0;background:var(--black);">
+  <div class="container--wide">
+    {% if allFighters and allFighters.length %}
+      <div class="fighters-grid">
+        {% for fighter in allFighters %}
+          <div class="fighter-card animate-in">
+            {% if fighter.data.photo %}<img src="{{ fighter.data.photo }}" alt="{{ fighter.data.title }}" class="fighter-card__img" />
+            {% else %}<div class="fighter-card__placeholder">🥊</div>{% endif %}
+            <div class="fighter-card__overlay">
+              {% if fighter.data.nickname %}<div class="fighter-card__nickname">"{{ fighter.data.nickname }}"</div>{% endif %}
+              <div class="fighter-card__name">{{ fighter.data.title }}</div>
+              <div class="fighter-card__info">{{ fighter.data.weight_class }} • {{ fighter.data.gym }}</div>
+              {% if fighter.templateContent %}<div style="font-family:var(--font-body);font-size:12px;color:rgba(255,255,255,0.5);margin-top:8px;line-height:1.5;">{{ fighter.templateContent | safe }}</div>{% endif %}
+            </div>
+            {% if fighter.data.record %}<div class="fighter-card__record">{{ fighter.data.record }}</div>{% endif %}
+            {% if fighter.data.sport %}<div class="fighter-card__sport-badge">{{ fighter.data.sport }}</div>{% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div style="text-align:center;padding:80px 24px;">
+        <div style="font-family:var(--font-display);font-size:clamp(48px,8vw,96px);color:var(--red);line-height:0.9;margin-bottom:24px;">Coming Soon</div>
+        <div style="font-family:var(--font-condensed);font-size:16px;color:var(--grey);max-width:500px;margin:0 auto 40px;line-height:1.8;">Fighter profiles for upcoming events will be published closer to each event date.</div>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://www.facebook.com/p/Mayhem-Fight-Series-100087314049666/" target="_blank" rel="noopener" class="btn btn--outline">Facebook</a>
+          <a href="https://www.instagram.com/mayhemfightseries/" target="_blank" rel="noopener" class="btn btn--outline">Instagram</a>
+          <a href="/contact/" class="btn btn--primary">Register as a Fighter</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>

@@ -1,0 +1,12 @@
+{
+  "name": "mayhem-fight-series",
+  "version": "1.0.0",
+  "description": "Mayhem Fight Series Website",
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

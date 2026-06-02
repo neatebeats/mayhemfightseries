@@ -1,0 +1,50 @@
+---
+layout: base.njk
+title: "Results"
+permalink: /results/
+---
+{% set allResults = collections.results | sortByDate %}
+<section class="page-hero">
+  <div class="container">
+    <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" style="height:70px;width:auto;margin-bottom:24px;" />
+    <div class="section-label">Mayhem Fight Series</div>
+    <h1 class="page-hero__title">Results</h1>
+    <p class="page-hero__sub">Event results from past Mayhem Fight Series events</p>
+  </div>
+</section>
+<section class="results-section" style="padding-top:60px;">
+  <div class="container">
+    {% if allResults and allResults.length %}
+      {% for result in allResults %}
+        <div style="margin-bottom:48px;" class="animate-in">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--red);">
+            <div style="font-family:var(--font-display);font-size:36px;text-transform:uppercase;">{{ result.data.title }}</div>
+            <div style="font-family:var(--font-condensed);font-size:13px;color:var(--grey);">{{ result.data.date | readableDate }} — {{ result.data.venue }}</div>
+          </div>
+          <div class="results-grid" style="margin-top:0;">
+            {% for bout in result.data.bouts %}
+              <div class="result-card">
+                <div class="result-card__header">
+                  <div class="result-card__event">{{ bout.bout_type }}</div>
+                  <div class="result-card__date">{{ bout.sport }} — {{ bout.weight_class }}</div>
+                </div>
+                <div class="result-card__body">
+                  <div class="result-bout">
+                    <div class="result-winner">{{ bout.winner }}</div>
+                    <div class="result-method">{{ bout.method }} {% if bout.round %}<span>{{ bout.round }}{% if bout.time %} — {{ bout.time }}{% endif %}</span>{% endif %}</div>
+                    <div class="result-loser">{{ bout.loser }}</div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div style="text-align:center;padding:60px 0;">
+        <div style="font-family:var(--font-display);font-size:48px;color:var(--red);margin-bottom:16px;">Coming Soon</div>
+        <div style="font-family:var(--font-condensed);font-size:14px;color:var(--grey);">Results are added after each event via the admin panel.</div>
+      </div>
+    {% endif %}
+  </div>
+</section>

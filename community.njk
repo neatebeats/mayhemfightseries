@@ -1,0 +1,90 @@
+---
+layout: base.njk
+title: "Community"
+permalink: /community/
+---
+{% set notices = collections.notices | sortByDate %}
+{% set upcomingEvents = collections.events | upcoming | sortByDate %}
+<section class="page-hero">
+  <div class="container">
+    <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" style="height:70px;width:auto;margin-bottom:24px;" />
+    <div class="section-label">Mayhem Fight Series Community</div>
+    <h1 class="page-hero__title">Notice Board</h1>
+    <p class="page-hero__sub">Announcements, fighter news, sponsorship and community updates</p>
+  </div>
+</section>
+<section class="community-section" style="padding-top:60px;">
+  <div class="container">
+    <div class="community-grid">
+      <div>
+        {% if notices and notices.length %}
+          {% for notice in notices %}
+            <div class="notice-card animate-in">
+              <div class="notice-card__category">{{ notice.data.category }}</div>
+              <div class="notice-card__title">{{ notice.data.title }}</div>
+              <div class="notice-card__body">{{ notice.templateContent | safe }}</div>
+              <div class="notice-card__date">{{ notice.data.date | readableDate }}</div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="notice-card animate-in">
+            <div class="notice-card__category">🥊 Fighter Recruitment</div>
+            <div class="notice-card__title">Fighter Registrations Open</div>
+            <div class="notice-card__body">Mayhem Fight Series is accepting fighter registrations for upcoming events. Muay Thai, K1 and Boxing. Contact John Halford on <a href="tel:0411648890" style="color:var(--red);">0411 648 890</a>.</div>
+          </div>
+          <div class="notice-card animate-in">
+            <div class="notice-card__category">💼 Sponsorship</div>
+            <div class="notice-card__title">Sponsorship Opportunities Available</div>
+            <div class="notice-card__body">Sponsorship packages available. Contact John Halford on <a href="tel:0411648890" style="color:var(--red);">0411 648 890</a>.</div>
+          </div>
+          <div class="notice-card animate-in">
+            <div class="notice-card__category">📺 Livestream</div>
+            <div class="notice-card__title">Livestream Available via Eventbrite</div>
+            <div class="notice-card__body">Watch every Mayhem Fight Series event live via <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" style="color:var(--red);">Eventbrite →</a></div>
+          </div>
+          <div class="notice-card animate-in">
+            <div class="notice-card__category">📣 Social Media</div>
+            <div class="notice-card__title">Follow Us for Event Updates</div>
+            <div class="notice-card__body">Follow Mayhem Fight Series on <a href="https://www.facebook.com/p/Mayhem-Fight-Series-100087314049666/" target="_blank" rel="noopener" style="color:var(--red);">Facebook</a> and <a href="https://www.instagram.com/mayhemfightseries/" target="_blank" rel="noopener" style="color:var(--red);">Instagram</a> for the latest updates.</div>
+          </div>
+        {% endif %}
+      </div>
+      <div>
+        <div class="sidebar-widget animate-in">
+          <div class="sidebar-widget__title">Upcoming Events</div>
+          {% if upcomingEvents and upcomingEvents.length %}
+            {% for event in upcomingEvents | slice(0,3) %}
+              <div class="upcoming-event-mini">
+                <div class="upcoming-mini__date"><div class="upcoming-mini__day">{{ event.data.date | day }}</div><div class="upcoming-mini__month">{{ event.data.date | shortMonth }}</div></div>
+                <div class="upcoming-mini__info"><div class="upcoming-mini__name">{{ event.data.title }}</div><div class="upcoming-mini__venue">{{ event.data.venue }}</div></div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="upcoming-event-mini">
+              <div class="upcoming-mini__date"><div class="upcoming-mini__day">20</div><div class="upcoming-mini__month">JUN</div></div>
+              <div class="upcoming-mini__info"><div class="upcoming-mini__name">Mayhem 13</div><div class="upcoming-mini__venue">Souths Merewether</div></div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="sidebar-widget animate-in">
+          <div class="sidebar-widget__title">Tickets & Livestream</div>
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;justify-content:center;margin-bottom:10px;">🎟 Buy Tickets</a>
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--outline" style="width:100%;justify-content:center;">▶ Watch Livestream</a>
+        </div>
+        <div class="sidebar-widget animate-in">
+          <div class="sidebar-widget__title">Fighter Registration</div>
+          <p style="font-family:var(--font-body);font-size:14px;color:var(--grey);line-height:1.7;margin-bottom:16px;">Interested in competing at a Mayhem event?</p>
+          <a href="/contact/" class="btn btn--primary" style="width:100%;justify-content:center;">Register as Fighter</a>
+        </div>
+        <div class="sidebar-widget animate-in">
+          <div class="sidebar-widget__title">Follow Mayhem FS</div>
+          <div style="display:flex;gap:10px;">
+            <a href="https://www.facebook.com/p/Mayhem-Fight-Series-100087314049666/" target="_blank" rel="noopener" class="social-btn">f</a>
+            <a href="https://www.instagram.com/mayhemfightseries/" target="_blank" rel="noopener" class="social-btn">📷</a>
+            <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="social-btn">🎟</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

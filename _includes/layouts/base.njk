@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ title }} — Mayhem Fight Series</title>
+  <meta name="description" content="{{ description or "Mayhem Fight Series — Newcastle's Premier Amateur Muay Thai, K1 & Boxing Promotion." }}" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">
+      <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" class="nav__logo-img" />
+    </a>
+    <ul class="nav__links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/events/">Events</a></li>
+      <li><a href="/fighters/">Fighters</a></li>
+      <li><a href="/results/">Results</a></li>
+      <li><a href="/gallery/">Gallery</a></li>
+      <li><a href="/community/">Community</a></li>
+      <li><a href="/sponsors/">Sponsors</a></li>
+      <li><a href="/contact/">Contact</a></li>
+    </ul>
+    <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="nav__cta btn btn--primary">Buy Tickets</a>
+    <div class="nav__hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="nav__mobile" id="mobileMenu">
+  <a href="/">Home</a>
+  <a href="/events/">Events</a>
+  <a href="/fighters/">Fighters</a>
+  <a href="/results/">Results</a>
+  <a href="/gallery/">Gallery</a>
+  <a href="/community/">Community</a>
+  <a href="/sponsors/">Sponsors</a>
+  <a href="/contact/">Contact</a>
+  <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" style="color:var(--red);">🎟 Buy Tickets</a>
+</div>
+
+{{ content | safe }}
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" class="footer__logo-img" />
+        <div class="footer__tagline">Newcastle's Premier Amateur Muay Thai, K1 & Boxing Promotion. Promoted by John Halford.</div>
+        <div class="contact-social">
+          <a href="https://www.facebook.com/p/Mayhem-Fight-Series-100087314049666/" target="_blank" rel="noopener" class="social-btn" title="Facebook">f</a>
+          <a href="https://www.instagram.com/mayhemfightseries/" target="_blank" rel="noopener" class="social-btn" title="Instagram">📷</a>
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="social-btn" title="Eventbrite">🎟</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer__heading">Quick Links</div>
+        <ul class="footer__links">
+          <li><a href="/events/">Events</a></li>
+          <li><a href="/fighters/">Fighters</a></li>
+          <li><a href="/results/">Results</a></li>
+          <li><a href="/gallery/">Gallery</a></li>
+          <li><a href="/community/">Community</a></li>
+          <li><a href="/sponsors/">Sponsors</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Get Involved</div>
+        <ul class="footer__links">
+          <li><a href="/contact/">Fighter Registration</a></li>
+          <li><a href="/contact/">Sponsorship Enquiry</a></li>
+          <li><a href="/contact/">Media Accreditation</a></li>
+          <li><a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener">Buy Tickets</a></li>
+          <li><a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener">Watch Livestream</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer__heading">Contact</div>
+        <div class="footer__contact-line"><span>👤</span><span>John Halford — Promoter</span></div>
+        <div class="footer__contact-line"><span>📞</span><span><a href="tel:0411648890" style="color:inherit;">0411 648 890</a></span></div>
+        <div class="footer__contact-line"><span>📍</span><span>Newcastle, NSW, Australia</span></div>
+        <div class="footer__contact-line"><span>🎟</span><span><a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" style="color:var(--red);">Tickets on Eventbrite</a></span></div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="footer__bottom">
+      <div class="footer__copy">© 2026 Mayhem Fight Series. All rights reserved. Promoted by John Halford.</div>
+      <div class="footer__bottom-links">
+        <a href="/admin/" style="color:var(--steel);">Admin</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox__close" id="lightbox-close">✕</button>
+  <button class="lightbox__prev" id="lightbox-prev">‹</button>
+  <img class="lightbox__img" id="lightbox-img" src="" alt="Gallery" />
+  <button class="lightbox__next" id="lightbox-next">›</button>
+</div>
+
+<script src="/js/main.js"></script>
+<script>
+  window.netlifyIdentity.on("init", function(user) {
+    if (!user) {
+      window.netlifyIdentity.on("login", function() {
+        document.location.href = "/admin/";
+      });
+    }
+  });
+  if (window.location.hash && (
+    window.location.hash.indexOf("invite_token") > -1 ||
+    window.location.hash.indexOf("recovery_token") > -1
+  )) {
+    window.netlifyIdentity.open();
+  }
+</script>
+</body>
+</html>

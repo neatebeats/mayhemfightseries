@@ -1,0 +1,323 @@
+---
+layout: base.njk
+title: "Newcastle's Premier Muay Thai, K1 & Boxing Promotion"
+description: "Mayhem Fight Series — Newcastle's premier amateur Muay Thai, K1 and Boxing promotion. Live events, fight cards, tickets and livestream via Eventbrite."
+permalink: /
+---
+
+{% set upcomingEvents = collections.events | upcoming | sortByDate %}
+{% set nextEvent = upcomingEvents[0] %}
+{% set featuredFighters = collections.fighters | featured %}
+{% set recentResults = collections.results | sortByDate %}
+{% set notices = collections.notices | sortByDate %}
+{% set activeSponsors = collections.sponsors | activeOnly %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero__bg"></div>
+  <div class="hero__grid-overlay"></div>
+  <div class="hero__noise"></div>
+  <div class="hero__inner">
+    <div class="hero__content">
+      <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" class="hero__logo-img" style="opacity:0;animation:fadeIn 0.8s ease forwards 0.1s;" />
+      <div class="hero__eyebrow">Next Event</div>
+      <h1 class="hero__title">
+        <span>Mayhem</span>
+        <span class="line-red">Fight</span>
+        <span class="line-outline">Series</span>
+      </h1>
+      <div class="hero__event-info">
+        {% if nextEvent %}
+          <div class="hero__event-name">{{ nextEvent.data.title }}</div>
+          <div class="hero__event-details"><strong>{{ nextEvent.data.date | readableDate }}</strong></div>
+          <div class="hero__event-details">📍 {{ nextEvent.data.venue }}</div>
+          <div class="hero__event-details">Main Event: <strong>{{ nextEvent.data.main_event or "Coming Soon" }}</strong></div>
+        {% else %}
+          <div class="hero__event-name">Mayhem Fight Series</div>
+          <div class="hero__event-details">Next event coming soon</div>
+        {% endif %}
+      </div>
+      <div class="hero__actions">
+        <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--primary">🎟 Buy Tickets</a>
+        <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--outline">▶ Watch Livestream</a>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="hero__poster-frame">
+        {% if nextEvent and nextEvent.data.poster %}
+          <img src="{{ nextEvent.data.poster }}" alt="{{ nextEvent.data.title }}" class="hero__poster" />
+        {% else %}
+          <div class="hero__poster-placeholder">
+            <div class="event-title-big">{% if nextEvent %}{{ nextEvent.data.title }}{% else %}MAYHEM FS{% endif %}</div>
+            {% if nextEvent %}<div class="event-subtitle">{{ nextEvent.data.date | readableDate }}</div>{% endif %}
+          </div>
+        {% endif %}
+        <div class="hero__corner-tag">Tickets on Eventbrite</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN -->
+<section class="countdown-section">
+  <div class="container">
+    <div class="countdown__inner">
+      <div class="countdown__label-left">Fight Night Countdown</div>
+      <div class="countdown__units">
+        <div class="countdown__unit"><span class="countdown__number" id="cd-days">00</span><div class="countdown__unit-label">Days</div></div>
+        <div class="countdown__unit"><span class="countdown__number" id="cd-hours">00</span><div class="countdown__unit-label">Hours</div></div>
+        <div class="countdown__unit"><span class="countdown__number" id="cd-mins">00</span><div class="countdown__unit-label">Mins</div></div>
+        <div class="countdown__unit"><span class="countdown__number" id="cd-secs">00</span><div class="countdown__unit-label">Secs</div></div>
+      </div>
+    </div>
+  </div>
+  {% if nextEvent %}
+    <span id="next-event-date-raw" data-date="{{ nextEvent.data.date | isoDate }}" style="display:none"></span>
+  {% else %}
+    <span id="next-event-date-raw" data-date="" style="display:none"></span>
+  {% endif %}
+</section>
+
+<!-- NEXT EVENT / FIGHT CARD -->
+<section class="next-event">
+  <div class="container">
+    <div class="section-label">Upcoming Event</div>
+    <h2 class="section-title">Fight <span>Card</span></h2>
+    <div class="next-event__grid">
+      <div class="next-event__info animate-in">
+        {% if nextEvent %}
+          <div class="next-event__name">{{ nextEvent.data.title }}</div>
+          <div class="next-event__meta">
+            <div class="next-event__meta-row"><span class="next-event__meta-icon">📅</span><span class="next-event__meta-label">Date</span><span class="next-event__meta-value">{{ nextEvent.data.date | readableDate }}</span></div>
+            <div class="next-event__meta-row"><span class="next-event__meta-icon">📍</span><span class="next-event__meta-label">Venue</span><span class="next-event__meta-value">{{ nextEvent.data.venue }}</span></div>
+            {% if nextEvent.data.doors %}<div class="next-event__meta-row"><span class="next-event__meta-icon">🚪</span><span class="next-event__meta-label">Doors</span><span class="next-event__meta-value">{{ nextEvent.data.doors }}</span></div>{% endif %}
+            <div class="next-event__meta-row"><span class="next-event__meta-icon">📺</span><span class="next-event__meta-label">Livestream</span><span class="next-event__meta-value">Available via Eventbrite</span></div>
+          </div>
+        {% endif %}
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--primary">🎟 Buy Tickets</a>
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--outline">▶ Livestream</a>
+        </div>
+      </div>
+      <div class="fight-card animate-in">
+        <div class="fight-card__title">Fight Card</div>
+        {% if nextEvent and nextEvent.data.fight_card and nextEvent.data.fight_card.length %}
+          {% for bout in nextEvent.data.fight_card %}
+            <div class="fight-bout {% if bout.bout_type == 'Main Event' %}main-event{% endif %}">
+              {% if bout.bout_type %}<div class="fight-bout__badge">{{ bout.bout_type }}</div>{% endif %}
+              <div class="fight-fighter">
+                <div class="fight-fighter__name">{{ bout.fighter_a_name }}</div>
+                <div class="fight-fighter__detail">{{ bout.fighter_a_gym }}{% if bout.fighter_a_record %} | {{ bout.fighter_a_record }}{% endif %}</div>
+              </div>
+              <div class="fight-vs">
+                <span class="fight-vs__text">VS</span>
+                <div class="fight-vs__weight">{{ bout.weight_class }}</div>
+              </div>
+              <div class="fight-fighter right">
+                <div class="fight-fighter__name">{{ bout.fighter_b_name }}</div>
+                <div class="fight-fighter__detail">{{ bout.fighter_b_gym }}{% if bout.fighter_b_record %} | {{ bout.fighter_b_record }}{% endif %}</div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div style="background:var(--charcoal);border:1px solid rgba(255,255,255,0.05);padding:32px;text-align:center;">
+            <div style="font-family:var(--font-display);font-size:36px;color:var(--red);margin-bottom:12px;">Coming Soon</div>
+            <div style="font-family:var(--font-condensed);font-size:14px;color:var(--grey);">Fight card will be announced closer to the event.</div>
+            <div style="display:flex;gap:12px;justify-content:center;margin-top:24px;">
+              <a href="https://www.facebook.com/p/Mayhem-Fight-Series-100087314049666/" target="_blank" rel="noopener" class="btn btn--outline" style="font-size:12px;padding:10px 16px;">Facebook</a>
+              <a href="https://www.instagram.com/mayhemfightseries/" target="_blank" rel="noopener" class="btn btn--outline" style="font-size:12px;padding:10px 16px;">Instagram</a>
+            </div>
+          </div>
+        {% endif %}
+        <div style="margin-top:16px;">
+          <a href="/events/" class="btn btn--outline" style="width:100%;justify-content:center;">View All Events →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED FIGHTERS -->
+<section class="fighters-section">
+  <div class="container--wide">
+    <div class="container">
+      <div class="section-label">Featured Fighters</div>
+      <h2 class="section-title">The <span>Roster</span></h2>
+    </div>
+    <div class="fighters-grid" style="margin-top:48px;">
+      {% if featuredFighters and featuredFighters.length %}
+        {% for fighter in featuredFighters %}
+          <div class="fighter-card animate-in">
+            {% if fighter.data.photo %}
+              <img src="{{ fighter.data.photo }}" alt="{{ fighter.data.title }}" class="fighter-card__img" />
+            {% else %}
+              <div class="fighter-card__placeholder">🥊</div>
+            {% endif %}
+            <div class="fighter-card__overlay">
+              {% if fighter.data.nickname %}<div class="fighter-card__nickname">"{{ fighter.data.nickname }}"</div>{% endif %}
+              <div class="fighter-card__name">{{ fighter.data.title }}</div>
+              <div class="fighter-card__info">{{ fighter.data.weight_class }} • {{ fighter.data.gym }}</div>
+            </div>
+            {% if fighter.data.record %}<div class="fighter-card__record">{{ fighter.data.record }}</div>{% endif %}
+            {% if fighter.data.sport %}<div class="fighter-card__sport-badge">{{ fighter.data.sport }}</div>{% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% for i in [1,2,3,4] %}
+          <div class="fighter-card animate-in">
+            <div class="fighter-card__placeholder">🥊</div>
+            <div class="fighter-card__overlay">
+              <div class="fighter-card__name">Coming Soon</div>
+              <div class="fighter-card__info">Fighter profiles will be added</div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="/fighters/" class="btn btn--outline">View All Fighters →</a>
+    </div>
+  </div>
+</section>
+
+<!-- RECENT RESULTS -->
+<section class="results-section">
+  <div class="container">
+    <div class="section-label">Event Results</div>
+    <h2 class="section-title">Recent <span>Results</span></h2>
+    <div class="results-grid" style="margin-top:60px;">
+      {% if recentResults and recentResults.length %}
+        {% for result in recentResults | slice(0, 3) %}
+          <div class="result-card animate-in">
+            <div class="result-card__header">
+              <div class="result-card__event">{{ result.data.title }}</div>
+              <div class="result-card__date">{{ result.data.date | readableDate }}</div>
+            </div>
+            <div class="result-card__body">
+              {% for bout in result.data.bouts %}
+                <div class="result-bout">
+                  <div class="result-winner">{{ bout.winner }}</div>
+                  <div class="result-method">{{ bout.method }} {% if bout.round %}<span>{{ bout.bout_type }}</span>{% endif %}</div>
+                  <div class="result-loser">{{ bout.loser }}</div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="result-card animate-in">
+          <div class="result-card__header"><div class="result-card__event">Results</div></div>
+          <div class="result-card__body" style="padding:32px;text-align:center;">
+            <div style="font-family:var(--font-display);font-size:28px;color:var(--red);">Coming Soon</div>
+            <div style="font-family:var(--font-condensed);font-size:13px;color:var(--grey);margin-top:8px;">Results added after each event</div>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="/results/" class="btn btn--outline">Full Results Archive →</a>
+    </div>
+  </div>
+</section>
+
+<!-- SPONSORS -->
+<section class="sponsors-section">
+  <div class="container">
+    <div class="section-label">Our Partners</div>
+    <h2 class="section-title" style="font-size:clamp(28px,4vw,48px);">Official <span>Sponsors</span></h2>
+    <div class="sponsors-row" style="margin-top:48px;">
+      {% if activeSponsors and activeSponsors.length %}
+        {% for sponsor in activeSponsors %}
+          <div class="sponsor-item" style="opacity:0.85;">
+            {% if sponsor.data.logo %}
+              <a href="{{ sponsor.data.url or '#' }}" target="_blank" rel="noopener">
+                <img src="{{ sponsor.data.logo }}" alt="{{ sponsor.data.title }}" style="height:60px;width:auto;filter:brightness(0) invert(1);" />
+              </a>
+            {% else %}
+              <a href="{{ sponsor.data.url or '#' }}" target="_blank" rel="noopener">
+                <div class="sponsor-placeholder">{{ sponsor.data.title }}</div>
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="sponsor-item" style="opacity:0.85;"><div class="sponsor-placeholder">Fighting Arts Gym Belmont</div></div>
+        <div class="sponsor-item" style="opacity:0.85;"><div class="sponsor-placeholder">MASA</div></div>
+      {% endif %}
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="/contact/" class="btn btn--outline">Become a Sponsor →</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY NOTICES -->
+<section class="community-section">
+  <div class="container">
+    <div class="section-label">Community</div>
+    <h2 class="section-title">Notice <span>Board</span></h2>
+    <div class="community-grid">
+      <div>
+        {% if notices and notices.length %}
+          {% for notice in notices | slice(0, 4) %}
+            <div class="notice-card animate-in">
+              <div class="notice-card__category">{{ notice.data.category }}</div>
+              <div class="notice-card__title">{{ notice.data.title }}</div>
+              <div class="notice-card__body">{{ notice.templateContent | safe }}</div>
+              <div class="notice-card__date">{{ notice.data.date | readableDate }}</div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="notice-card animate-in">
+            <div class="notice-card__category">🥊 Fighter Recruitment</div>
+            <div class="notice-card__title">Fighter Registrations Open</div>
+            <div class="notice-card__body">Contact John Halford on <a href="tel:0411648890" style="color:var(--red);">0411 648 890</a> to register.</div>
+          </div>
+          <div class="notice-card animate-in">
+            <div class="notice-card__category">📺 Livestream</div>
+            <div class="notice-card__title">Livestream Available via Eventbrite</div>
+            <div class="notice-card__body">Watch every event live via <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" style="color:var(--red);">Eventbrite →</a></div>
+          </div>
+        {% endif %}
+      </div>
+      <div>
+        <div class="sidebar-widget animate-in">
+          <div class="sidebar-widget__title">Upcoming Events</div>
+          {% if upcomingEvents and upcomingEvents.length %}
+            {% for event in upcomingEvents | slice(0, 3) %}
+              <div class="upcoming-event-mini">
+                <div class="upcoming-mini__date">
+                  <div class="upcoming-mini__day">{{ event.data.date | day }}</div>
+                  <div class="upcoming-mini__month">{{ event.data.date | shortMonth }}</div>
+                </div>
+                <div class="upcoming-mini__info">
+                  <div class="upcoming-mini__name">{{ event.data.title }}</div>
+                  <div class="upcoming-mini__venue">{{ event.data.venue }}</div>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="upcoming-event-mini">
+              <div class="upcoming-mini__date"><div class="upcoming-mini__day">20</div><div class="upcoming-mini__month">JUN</div></div>
+              <div class="upcoming-mini__info"><div class="upcoming-mini__name">Mayhem 13</div><div class="upcoming-mini__venue">Souths Merewether</div></div>
+            </div>
+          {% endif %}
+        </div>
+        <div class="sidebar-widget animate-in">
+          <div class="sidebar-widget__title">Tickets & Livestream</div>
+          <p style="font-family:var(--font-body);font-size:14px;color:var(--grey);line-height:1.7;margin-bottom:16px;">In-person and livestream tickets via Eventbrite.</p>
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--primary" style="width:100%;justify-content:center;margin-bottom:10px;">🎟 Buy Tickets</a>
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--outline" style="width:100%;justify-content:center;">▶ Watch Livestream</a>
+        </div>
+        <div class="sidebar-widget animate-in">
+          <div class="sidebar-widget__title">Fighter Registration</div>
+          <p style="font-family:var(--font-body);font-size:14px;color:var(--grey);line-height:1.7;margin-bottom:16px;">Interested in competing at a Mayhem event?</p>
+          <a href="/contact/" class="btn btn--primary" style="width:100%;justify-content:center;">Register as Fighter</a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <a href="/community/" class="btn btn--outline">View All Notices →</a>
+    </div>
+  </div>
+</section>

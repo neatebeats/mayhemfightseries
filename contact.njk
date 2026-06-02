@@ -1,0 +1,124 @@
+---
+layout: base.njk
+title: "Contact"
+permalink: /contact/
+---
+<section class="page-hero">
+  <div class="container">
+    <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" style="height:70px;width:auto;margin-bottom:24px;" />
+    <div class="section-label">Mayhem Fight Series</div>
+    <h1 class="page-hero__title">Contact</h1>
+    <p class="page-hero__sub">Fighter registration, sponsorship, media &amp; general enquiries</p>
+  </div>
+</section>
+<section class="contact-section" style="padding-top:60px;">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="animate-in">
+        <div class="section-label">Get in Touch</div>
+        <h2 class="section-title" style="font-size:clamp(32px,4vw,52px);margin-bottom:32px;">Contact <span>Info</span></h2>
+        <div class="contact-info__item">
+          <div class="contact-info__icon">👤</div>
+          <div><div class="contact-info__label">Promoter</div><div class="contact-info__value">John Halford</div></div>
+        </div>
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📞</div>
+          <div><div class="contact-info__label">Phone</div><div class="contact-info__value"><a href="tel:0411648890" style="color:inherit;">0411 648 890</a></div></div>
+        </div>
+        <div class="contact-info__item">
+          <div class="contact-info__icon">📍</div>
+          <div><div class="contact-info__label">Based In</div><div class="contact-info__value">Newcastle, NSW, Australia</div></div>
+        </div>
+        <div class="contact-info__item">
+          <div class="contact-info__icon">🎟</div>
+          <div><div class="contact-info__label">Tickets &amp; Livestream</div><div class="contact-info__value"><a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" style="color:var(--red);">Available via Eventbrite</a></div></div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:32px;">
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--primary">🎟 Buy Tickets</a>
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--outline">▶ Livestream</a>
+        </div>
+        <div class="contact-social" style="margin-top:32px;">
+          <a href="https://www.facebook.com/p/Mayhem-Fight-Series-100087314049666/" target="_blank" rel="noopener" class="social-btn">f</a>
+          <a href="https://www.instagram.com/mayhemfightseries/" target="_blank" rel="noopener" class="social-btn">📷</a>
+          <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="social-btn">🎟</a>
+        </div>
+      </div>
+      <div class="animate-in">
+        <div class="form-tabs">
+          <button class="form-tab active" data-target="form-general">General</button>
+          <button class="form-tab" data-target="form-fighter">Fighter Reg</button>
+          <button class="form-tab" data-target="form-sponsor">Sponsorship</button>
+          <button class="form-tab" data-target="form-media">Media</button>
+        </div>
+        <div class="form-panel" id="form-general">
+          <form name="general-enquiry" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="general-enquiry" />
+            <div class="form-group"><label>Full Name *</label><input type="text" name="name" required placeholder="Your full name" /></div>
+            <div class="form-row">
+              <div class="form-group"><label>Email *</label><input type="email" name="email" required placeholder="your@email.com" /></div>
+              <div class="form-group"><label>Phone</label><input type="tel" name="phone" placeholder="04XX XXX XXX" /></div>
+            </div>
+            <div class="form-group"><label>Subject *</label><input type="text" name="subject" required /></div>
+            <div class="form-group"><label>Message *</label><textarea name="message" required placeholder="How can we help?"></textarea></div>
+            <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Send Enquiry</button>
+          </form>
+        </div>
+        <div class="form-panel" id="form-fighter" style="display:none;">
+          <form name="fighter-registration" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="fighter-registration" />
+            <div class="form-row">
+              <div class="form-group"><label>Fighter Name *</label><input type="text" name="fighter-name" required /></div>
+              <div class="form-group"><label>Date of Birth *</label><input type="date" name="dob" required /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Email *</label><input type="email" name="email" required /></div>
+              <div class="form-group"><label>Phone *</label><input type="tel" name="phone" required /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Sport *</label><select name="sport" required><option value="">Select...</option><option>Muay Thai</option><option>K1</option><option>Boxing</option></select></div>
+              <div class="form-group"><label>Weight Class *</label><select name="weight-class" required><option value="">Select...</option><option>Atomweight (-48kg)</option><option>Strawweight (-52kg)</option><option>Flyweight (-57kg)</option><option>Lightweight (-63kg)</option><option>Welterweight (-67kg)</option><option>Super Welterweight (-70kg)</option><option>Middleweight (-75kg)</option><option>Light Heavyweight (-83kg)</option><option>Heavyweight (+83kg)</option></select></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Fight Record</label><input type="text" name="record" placeholder="e.g. 3-1-0 or Amateur" /></div>
+              <div class="form-group"><label>Gym / Club *</label><input type="text" name="gym" required /></div>
+            </div>
+            <div class="form-group"><label>Head Coach *</label><input type="text" name="coach" required /></div>
+            <div class="form-group"><label>Additional Info</label><textarea name="info" placeholder="Injuries, scheduling requirements, etc."></textarea></div>
+            <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Submit Fighter Registration</button>
+          </form>
+        </div>
+        <div class="form-panel" id="form-sponsor" style="display:none;">
+          <form name="sponsorship-enquiry" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="sponsorship-enquiry" />
+            <div class="form-group"><label>Business Name *</label><input type="text" name="business" required /></div>
+            <div class="form-row">
+              <div class="form-group"><label>Contact Name *</label><input type="text" name="name" required /></div>
+              <div class="form-group"><label>Phone *</label><input type="tel" name="phone" required /></div>
+            </div>
+            <div class="form-group"><label>Email *</label><input type="email" name="email" required /></div>
+            <div class="form-group"><label>Sponsorship Tier</label><select name="tier"><option value="">Select...</option><option>Title Sponsor</option><option>Major Sponsor</option><option>Event Sponsor</option><option>Fighter Sponsor</option><option>Supporting Sponsor</option><option>Not sure — send me options</option></select></div>
+            <div class="form-group"><label>Tell Us About Your Brand</label><textarea name="message" placeholder="What does your business do?"></textarea></div>
+            <button type="submit" class="btn btn--gold" style="width:100%;justify-content:center;">Request Sponsorship Package</button>
+          </form>
+        </div>
+        <div class="form-panel" id="form-media" style="display:none;">
+          <form name="media-accreditation" method="POST" data-netlify="true">
+            <input type="hidden" name="form-name" value="media-accreditation" />
+            <div class="form-row">
+              <div class="form-group"><label>Full Name *</label><input type="text" name="name" required /></div>
+              <div class="form-group"><label>Media Outlet *</label><input type="text" name="outlet" required /></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Email *</label><input type="email" name="email" required /></div>
+              <div class="form-group"><label>Phone *</label><input type="tel" name="phone" required /></div>
+            </div>
+            <div class="form-group"><label>Type of Media *</label><select name="media-type" required><option value="">Select...</option><option>Photography</option><option>Videography</option><option>Journalism / Print</option><option>Podcast / Audio</option><option>Online / Blog</option><option>Social Media / Content Creator</option></select></div>
+            <div class="form-group"><label>Event Applying For</label><select name="event"><option>Mayhem 13 — 20 June 2026</option><option>Future Events — General Application</option></select></div>
+            <div class="form-group"><label>Additional Notes</label><textarea name="notes"></textarea></div>
+            <button type="submit" class="btn btn--outline" style="width:100%;justify-content:center;">Apply for Accreditation</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

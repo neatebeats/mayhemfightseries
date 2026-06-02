@@ -1,0 +1,116 @@
+---
+layout: base.njk
+title: "Events"
+permalink: /events/
+---
+
+{% set upcomingEvents = collections.events | upcoming | sortByDate %}
+{% set pastEvents = collections.events | past | sortByDate %}
+
+<section class="page-hero">
+  <div class="container">
+    <img src="/images/mayhem-logo.jpg" alt="Mayhem Fight Series" style="height:70px;width:auto;margin-bottom:24px;" />
+    <div class="section-label">Mayhem Fight Series</div>
+    <h1 class="page-hero__title">Events</h1>
+    <p class="page-hero__sub">Upcoming fights, event archive, tickets &amp; livestream</p>
+  </div>
+</section>
+
+<section style="padding:80px 0;background:var(--black);">
+  <div class="container">
+    <div class="section-label">On Sale Now</div>
+    <h2 class="section-title" style="margin-bottom:48px;">Upcoming <span>Events</span></h2>
+
+    {% if upcomingEvents and upcomingEvents.length %}
+      {% for event in upcomingEvents %}
+        <div style="background:var(--charcoal);border:1px solid rgba(200,16,46,0.3);margin-bottom:32px;overflow:hidden;" class="animate-in">
+          <div style="background:var(--red);padding:8px 20px;">
+            <span style="font-family:var(--font-condensed);font-size:12px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;">{% if loop.first %}▶ Next Event{% else %}Upcoming{% endif %}</span>
+          </div>
+          <div style="display:grid;grid-template-columns:240px 1fr;gap:0;align-items:stretch;">
+            <div style="background:linear-gradient(135deg,var(--dark),var(--steel));display:flex;align-items:center;justify-content:center;padding:32px;min-height:220px;">
+              {% if event.data.poster %}
+                <img src="{{ event.data.poster }}" alt="{{ event.data.title }}" style="max-height:200px;width:auto;" />
+              {% else %}
+                <div style="text-align:center;">
+                  <div style="font-family:var(--font-display);font-size:40px;color:var(--red);line-height:0.9;">{{ event.data.title }}</div>
+                  <div style="font-family:var(--font-condensed);font-size:11px;letter-spacing:0.2em;color:var(--grey);margin-top:12px;text-transform:uppercase;">{{ event.data.date | readableDate }}</div>
+                </div>
+              {% endif %}
+            </div>
+            <div style="padding:32px;">
+              <div style="font-family:var(--font-condensed);font-size:12px;color:var(--red);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:8px;">{{ event.data.date | readableDate }}</div>
+              <div style="font-family:var(--font-display);font-size:40px;line-height:0.9;text-transform:uppercase;margin-bottom:16px;">{{ event.data.title }}</div>
+              <div style="font-family:var(--font-condensed);font-size:15px;color:var(--grey);margin-bottom:6px;">📍 {{ event.data.venue }}</div>
+              {% if event.data.doors %}<div style="font-family:var(--font-condensed);font-size:14px;color:var(--grey);margin-bottom:6px;">🚪 Doors: {{ event.data.doors }}</div>{% endif %}
+              <div style="font-family:var(--font-condensed);font-size:14px;color:var(--grey);margin-bottom:16px;">📺 Livestream available via Eventbrite</div>
+              <div style="font-family:var(--font-condensed);font-size:13px;color:var(--light-grey);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:6px;">Main Event</div>
+              <div style="font-family:var(--font-condensed);font-size:17px;color:var(--white);font-weight:600;margin-bottom:24px;">{{ event.data.main_event or "Coming Soon" }}</div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;">
+                <a href="{{ event.data.ticket_url or 'https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403' }}" target="_blank" rel="noopener" class="btn btn--primary">🎟 Buy Tickets</a>
+                <a href="https://www.eventbrite.com.au/o/mayhem-fight-series-57661453403" target="_blank" rel="noopener" class="btn btn--outline">▶ Livestream</a>
+              </div>
+            </div>
+          </div>
+          {% if event.data.fight_card and event.data.fight_card.length %}
+            <div style="padding:24px 32px;border-top:1px solid rgba(255,255,255,0.05);">
+              <div class="fight-card__title">Full Fight Card</div>
+              {% for bout in event.data.fight_card %}
+                <div class="fight-bout {% if bout.bout_type == 'Main Event' %}main-event{% endif %}">
+                  {% if bout.bout_type %}<div class="fight-bout__badge">{{ bout.bout_type }} — {{ bout.sport }}</div>{% endif %}
+                  <div class="fight-fighter">
+                    <div class="fight-fighter__name">{{ bout.fighter_a_name }}</div>
+                    <div class="fight-fighter__detail">{{ bout.fighter_a_gym }}{% if bout.fighter_a_record %} | {{ bout.fighter_a_record }}{% endif %}</div>
+                  </div>
+                  <div class="fight-vs"><span class="fight-vs__text">VS</span><div class="fight-vs__weight">{{ bout.weight_class }}</div></div>
+                  <div class="fight-fighter right">
+                    <div class="fight-fighter__name">{{ bout.fighter_b_name }}</div>
+                    <div class="fight-fighter__detail">{{ bout.fighter_b_gym }}{% if bout.fighter_b_record %} | {{ bout.fighter_b_record }}{% endif %}</div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <div style="background:var(--charcoal);border:1px solid rgba(255,255,255,0.05);padding:60px;text-align:center;" class="animate-in">
+        <div style="font-family:var(--font-display);font-size:48px;color:var(--red);margin-bottom:16px;">Coming Soon</div>
+        <div style="font-family:var(--font-condensed);font-size:15px;color:var(--grey);margin-bottom:24px;">Next event details will be announced soon. Follow us on social media for updates.</div>
+        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+          <a href="https://www.facebook.com/p/Mayhem-Fight-Series-100087314049666/" target="_blank" rel="noopener" class="btn btn--outline">Facebook</a>
+          <a href="https://www.instagram.com/mayhemfightseries/" target="_blank" rel="noopener" class="btn btn--outline">Instagram</a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% if pastEvents and pastEvents.length %}
+<section class="events-archive">
+  <div class="container">
+    <div class="section-label">History</div>
+    <h2 class="section-title" style="margin-bottom:48px;">Event <span>Archive</span></h2>
+    {% for event in pastEvents %}
+      <div class="event-archive-card animate-in">
+        <div class="event-archive-card__img">
+          {% if event.data.poster %}
+            <img src="{{ event.data.poster }}" alt="{{ event.data.title }}" />
+          {% else %}
+            <div class="event-archive-card__img-placeholder">{{ event.data.title | truncate(4, true, '') }}</div>
+          {% endif %}
+        </div>
+        <div class="event-archive-card__info">
+          <div class="event-archive-card__date">{{ event.data.date | readableDate }}</div>
+          <div class="event-archive-card__name">{{ event.data.title }}</div>
+          <div class="event-archive-card__venue">{{ event.data.venue }}</div>
+        </div>
+        <div class="event-archive-card__actions">
+          <a href="/results/" class="btn btn--outline" style="font-size:12px;padding:10px 16px;">Results</a>
+          <a href="/gallery/" class="btn btn--outline" style="font-size:12px;padding:10px 16px;">Gallery</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
