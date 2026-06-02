@@ -4,22 +4,12 @@ backend:
 
 site_url: https://mayhemfightseriesv2.netlify.app
 display_url: https://mayhemfightseriesv2.netlify.app
-backend:
-  name: git-gateway
-  branch: main
 
 media_folder: "uploads"
 public_folder: "/uploads"
 
-# Use Netlify Identity
-identity_url: "/.netlify/identity"
-gateway_url: "/.netlify/git/github"
-
 collections:
 
-  # =====================
-  # EVENTS
-  # =====================
   - name: "events"
     label: "Events"
     label_singular: "Event"
@@ -27,36 +17,29 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Event Name", name: "title", widget: "string", hint: "e.g. Iron Fist 12: No Mercy" }
-      - { label: "Event Number", name: "event_number", widget: "number", hint: "e.g. 12" }
+      - { label: "Event Name", name: "title", widget: "string" }
       - { label: "Status", name: "status", widget: "select", options: ["upcoming", "past"], default: "upcoming" }
       - { label: "Event Date", name: "date", widget: "datetime" }
-      - { label: "Venue Name", name: "venue", widget: "string", hint: "e.g. Newcastle Entertainment Centre" }
-      - { label: "Venue Address", name: "venue_address", widget: "string" }
-      - { label: "Doors Open", name: "doors", widget: "string", hint: "e.g. 6:00 PM", required: false }
-      - { label: "First Bell", name: "first_bell", widget: "string", hint: "e.g. 7:00 PM", required: false }
-      - { label: "Event Poster", name: "poster", widget: "image", required: false, hint: "Upload event fight poster (recommended: portrait format)" }
-      - { label: "Ticket Price From", name: "ticket_price", widget: "string", hint: "e.g. From $45", required: false }
+      - { label: "Venue", name: "venue", widget: "string" }
+      - { label: "Doors Open", name: "doors", widget: "string", required: false }
+      - { label: "Main Event", name: "main_event", widget: "string", required: false }
+      - { label: "Event Poster", name: "poster", widget: "image", required: false }
       - { label: "Ticket URL", name: "ticket_url", widget: "string", required: false }
       - label: "Fight Card"
         name: "fight_card"
         widget: "list"
-        label_singular: "Bout"
+        required: false
         fields:
           - { label: "Bout Type", name: "bout_type", widget: "select", options: ["Main Event", "Co-Main Event", "Main Card", "Undercard", "Prelim"] }
-          - { label: "Sport", name: "sport", widget: "select", options: ["Muay Thai", "Boxing", "Kickboxing"] }
-          - { label: "Weight Class", name: "weight_class", widget: "string", hint: "e.g. Super Welterweight (69kg)" }
+          - { label: "Sport", name: "sport", widget: "select", options: ["Muay Thai", "K1", "Boxing"] }
+          - { label: "Weight Class", name: "weight_class", widget: "string" }
           - { label: "Fighter A Name", name: "fighter_a_name", widget: "string" }
           - { label: "Fighter A Gym", name: "fighter_a_gym", widget: "string" }
-          - { label: "Fighter A Record", name: "fighter_a_record", widget: "string", hint: "e.g. 14-2" }
+          - { label: "Fighter A Record", name: "fighter_a_record", widget: "string", required: false }
           - { label: "Fighter B Name", name: "fighter_b_name", widget: "string" }
           - { label: "Fighter B Gym", name: "fighter_b_gym", widget: "string" }
-          - { label: "Fighter B Record", name: "fighter_b_record", widget: "string", hint: "e.g. 11-3" }
-      - { label: "Event Description", name: "body", widget: "markdown", required: false }
+          - { label: "Fighter B Record", name: "fighter_b_record", widget: "string", required: false }
 
-  # =====================
-  # FIGHTERS
-  # =====================
   - name: "fighters"
     label: "Fighters"
     label_singular: "Fighter"
@@ -65,47 +48,40 @@ collections:
     slug: "{{slug}}"
     fields:
       - { label: "Fighter Name", name: "title", widget: "string" }
-      - { label: "Nickname", name: "nickname", widget: "string", required: false, hint: "e.g. The Storm" }
-      - { label: "Fighter Photo", name: "photo", widget: "image", required: false, hint: "Upload a professional fighter photo" }
-      - { label: "Sport", name: "sport", widget: "select", options: ["Muay Thai", "Boxing", "Kickboxing"] }
+      - { label: "Nickname", name: "nickname", widget: "string", required: false }
+      - { label: "Fighter Photo", name: "photo", widget: "image", required: false }
+      - { label: "Sport", name: "sport", widget: "select", options: ["Muay Thai", "K1", "Boxing"] }
       - { label: "Gender", name: "gender", widget: "select", options: ["Male", "Female"] }
-      - { label: "Weight Class", name: "weight_class", widget: "select", options: ["Atomweight (-48kg)", "Strawweight (-52kg)", "Flyweight (-57kg)", "Lightweight (-63kg)", "Welterweight (-67kg)", "Super Welterweight (-70kg)", "Middleweight (-75kg)", "Light Heavyweight (-83kg)", "Heavyweight (+83kg)"] }
-      - { label: "Fight Record (W-L)", name: "record", widget: "string", hint: "e.g. 14-2" }
-      - { label: "Gym / Club", name: "gym", widget: "string" }
-      - { label: "Nationality", name: "nationality", widget: "string", required: false }
+      - { label: "Weight Class", name: "weight_class", widget: "string" }
+      - { label: "Record", name: "record", widget: "string", required: false }
+      - { label: "Gym", name: "gym", widget: "string" }
       - { label: "Featured on Homepage", name: "featured", widget: "boolean", default: false }
-      - { label: "Fighter Bio", name: "body", widget: "markdown", required: false }
+      - { label: "Bio", name: "body", widget: "markdown", required: false }
 
-  # =====================
-  # RESULTS
-  # =====================
   - name: "results"
     label: "Event Results"
-    label_singular: "Event Result"
+    label_singular: "Result"
     folder: "content/results"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
-      - { label: "Event Name", name: "title", widget: "string", hint: "e.g. Iron Fist 11" }
-      - { label: "Event Date", name: "date", widget: "datetime" }
+      - { label: "Event Name", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Venue", name: "venue", widget: "string" }
       - label: "Bout Results"
         name: "bouts"
         widget: "list"
-        label_singular: "Result"
+        required: false
         fields:
           - { label: "Bout Type", name: "bout_type", widget: "select", options: ["Main Event", "Co-Main Event", "Main Card", "Undercard", "Prelim"] }
           - { label: "Winner", name: "winner", widget: "string" }
           - { label: "Loser", name: "loser", widget: "string" }
-          - { label: "Result Method", name: "method", widget: "select", options: ["KO", "TKO", "Decision (Unanimous)", "Decision (Split)", "Decision (Majority)", "No Contest", "Draw"] }
-          - { label: "Round", name: "round", widget: "string", required: false, hint: "e.g. R3" }
-          - { label: "Time", name: "time", widget: "string", required: false, hint: "e.g. 2:14" }
-          - { label: "Sport", name: "sport", widget: "select", options: ["Muay Thai", "Boxing", "Kickboxing"] }
+          - { label: "Method", name: "method", widget: "select", options: ["KO", "TKO", "Decision (Unanimous)", "Decision (Split)", "Decision (Majority)", "No Contest", "Draw"] }
+          - { label: "Round", name: "round", widget: "string", required: false }
+          - { label: "Time", name: "time", widget: "string", required: false }
+          - { label: "Sport", name: "sport", widget: "select", options: ["Muay Thai", "K1", "Boxing"] }
           - { label: "Weight Class", name: "weight_class", widget: "string" }
 
-  # =====================
-  # COMMUNITY NOTICES
-  # =====================
   - name: "notices"
     label: "Community Notices"
     label_singular: "Notice"
@@ -115,13 +91,10 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Category", name: "category", widget: "select", options: ["Event Announcement", "Fighter Announcement", "Sponsorship", "Media", "Community Update", "Fighter Recruitment"] }
-      - { label: "Date Posted", name: "date", widget: "datetime" }
-      - { label: "Pinned (show at top)", name: "pinned", widget: "boolean", default: false }
+      - { label: "Date", name: "date", widget: "datetime" }
+      - { label: "Pinned", name: "pinned", widget: "boolean", default: false }
       - { label: "Content", name: "body", widget: "markdown" }
 
-  # =====================
-  # SPONSORS
-  # =====================
   - name: "sponsors"
     label: "Sponsors"
     label_singular: "Sponsor"
@@ -129,16 +102,12 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Sponsor / Business Name", name: "title", widget: "string" }
-      - { label: "Sponsor Logo", name: "logo", widget: "image", hint: "Upload sponsor logo (PNG with transparent background preferred)" }
+      - { label: "Business Name", name: "title", widget: "string" }
+      - { label: "Logo", name: "logo", widget: "image", required: false }
       - { label: "Website URL", name: "url", widget: "string", required: false }
-      - { label: "Sponsorship Tier", name: "tier", widget: "select", options: ["Title Sponsor", "Major Sponsor", "Event Sponsor", "Fighter Sponsor", "Supporting Sponsor"] }
+      - { label: "Tier", name: "tier", widget: "select", options: ["Title Sponsor", "Major Sponsor", "Event Sponsor", "Fighter Sponsor", "Supporting Sponsor"] }
       - { label: "Active", name: "active", widget: "boolean", default: true }
-      - { label: "Notes", name: "notes", widget: "text", required: false }
 
-  # =====================
-  # GALLERY
-  # =====================
   - name: "gallery"
     label: "Gallery Albums"
     label_singular: "Album"
@@ -146,45 +115,14 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Album Name", name: "title", widget: "string", hint: "e.g. Iron Fist 11 — Fight Night Photos" }
-      - { label: "Event", name: "event", widget: "string", hint: "e.g. Iron Fist 11" }
+      - { label: "Album Name", name: "title", widget: "string" }
+      - { label: "Event", name: "event", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime" }
       - { label: "Cover Photo", name: "cover", widget: "image", required: false }
       - label: "Photos"
         name: "photos"
         widget: "list"
-        label_singular: "Photo"
+        required: false
         fields:
           - { label: "Photo", name: "image", widget: "image" }
           - { label: "Caption", name: "caption", widget: "string", required: false }
-
-  # =====================
-  # HOMEPAGE SETTINGS
-  # =====================
-  - name: "settings"
-    label: "Website Settings"
-    files:
-      - label: "Homepage Settings"
-        name: "homepage"
-        file: "content/settings/homepage.md"
-        fields:
-          - { label: "Next Event Name", name: "next_event_name", widget: "string", hint: "e.g. Iron Fist 12: No Mercy" }
-          - { label: "Next Event Date", name: "next_event_date", widget: "datetime" }
-          - { label: "Next Event Venue", name: "next_event_venue", widget: "string" }
-          - { label: "Main Event Description", name: "main_event", widget: "string", hint: "e.g. Jordan Walsh vs Liam Torres — Super Welterweight" }
-          - { label: "Hero Background Image", name: "hero_bg", widget: "image", required: false }
-          - { label: "Event Poster (Hero)", name: "hero_poster", widget: "image", required: false }
-          - { label: "Ticket Price", name: "ticket_price", widget: "string", hint: "e.g. From $45", required: false }
-          - { label: "Tickets Available", name: "tickets_available", widget: "boolean", default: true }
-
-      - label: "Contact & Social Settings"
-        name: "contact"
-        file: "content/settings/contact.md"
-        fields:
-          - { label: "Email Address", name: "email", widget: "string" }
-          - { label: "Phone Number", name: "phone", widget: "string" }
-          - { label: "Location", name: "location", widget: "string" }
-          - { label: "Facebook URL", name: "facebook", widget: "string", required: false }
-          - { label: "Instagram URL", name: "instagram", widget: "string", required: false }
-          - { label: "YouTube URL", name: "youtube", widget: "string", required: false }
-          - { label: "TikTok URL", name: "tiktok", widget: "string", required: false }
