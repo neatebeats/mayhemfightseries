@@ -1,5 +1,6 @@
 ---
-title: "Fighting Arts Gym Belmont"
+title: Fighting Arts Gym Belmont
+logo: /uploads/images-1-.jpg
+tier: Major Sponsor
 active: true
-tier: "Major Sponsor"
 ---
