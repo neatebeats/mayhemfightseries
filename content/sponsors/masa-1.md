@@ -1,6 +1,6 @@
 ---
 title: MASA
-logo: /uploads/images-1-.png
+logo: https://www.facebook.com/MartialArtsSportsAssociation/
 tier: Title Sponsor
 active: true
 ---
