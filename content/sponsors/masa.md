@@ -1,7 +1,7 @@
 ---
 title: MASA
 logo: /uploads/images-1-.png
-url: https://masa.com.au/
+url: ""
 tier: Major Sponsor
 active: true
 ---
